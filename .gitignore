@@ -1,0 +1,32 @@
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/
+.env
+.env.local
+
+# Java / Maven Backend
+backend/target/
+*.class
+*.jar
+*.war
+
+# Python / ML
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+ml/dataset/*
+!ml/dataset/.gitkeep
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.log
+backend/uploads/*
+!backend/uploads/.gitkeep
