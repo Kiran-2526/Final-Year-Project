@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AgriThermal AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="navbar" id="mainNav"></header>
+
+    <main class="main-content">
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800;">Analytics Dashboard</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Overview of thermal image diagnosis statistics & disease distribution</p>
+      </div>
+
+      <div id="dashAlert" class="alert alert-error" style="display: none;"></div>
+
+      <div id="loadingDash" style="text-align: center; padding: 3rem 0; color: var(--text-muted);">
+        Loading dashboard statistics...
+      </div>
+
+      <div id="dashContent" style="display: none;">
+        <!-- Top Stats Counters -->
+        <div class="grid-3" style="margin-bottom: 2rem;">
+          <div class="card" style="display: flex; align-items: center; gap: 1.25rem;">
+            <div style="width: 52px; height: 52px; background: rgba(6, 182, 212, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+              📷
+            </div>
+            <div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Total Scans Executed</div>
+              <div id="statTotal" style="font-size: 1.85rem; font-weight: 800; font-family: var(--font-mono);">0</div>
+            </div>
+          </div>
+
+          <div class="card" style="display: flex; align-items: center; gap: 1.25rem;">
+            <div style="width: 52px; height: 52px; background: rgba(16, 185, 129, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+              🌿
+            </div>
+            <div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Healthy Leaves</div>
+              <div id="statHealthy" style="font-size: 1.85rem; font-weight: 800; color: #34d399; font-family: var(--font-mono);">0</div>
+            </div>
+          </div>
+
+          <div class="card" style="display: flex; align-items: center; gap: 1.25rem;">
+            <div style="width: 52px; height: 52px; background: rgba(245, 158, 11, 0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+              ⚠️
+            </div>
+            <div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Diseased Detections</div>
+              <div id="statDiseased" style="font-size: 1.85rem; font-weight: 800; color: #fbbf24; font-family: var(--font-mono);">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Disease Distribution -->
+          <div class="card">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+              Disease Distribution Breakdown
+            </h3>
+            <div id="distContainer" style="display: flex; flex-direction: column; gap: 0.85rem;"></div>
+          </div>
+
+          <!-- Recent Scans -->
+          <div class="card">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+              Recent Thermal Scans
+            </h3>
+            <div id="recentContainer" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      AgriThermal AI © 2026 - Paddy Leaf Disease Detection System
+    </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

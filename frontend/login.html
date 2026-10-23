@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AgriThermal AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="navbar" id="mainNav"></header>
+
+    <main class="main-content" style="display: flex; align-items: center; justify-content: center; padding: 4rem 1.5rem;">
+      <div class="card" style="width: 100%; max-width: 420px; padding: 2.25rem;">
+        <div style="text-align: center; margin-bottom: 1.75rem;">
+          <h2 style="font-size: 1.6rem; font-weight: 800;">Welcome Back</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to access your paddy thermal scan analytics</p>
+        </div>
+
+        <div id="loginAlert" style="display: none;"></div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="user@example.com" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.75rem;">
+            <label class="form-label" for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">
+            Sign In
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.88rem; color: var(--text-muted);">
+          Don't have an account? <a href="/register.html" style="font-weight: 600;">Create Account</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      AgriThermal AI © 2026 - Paddy Leaf Disease Detection System
+    </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

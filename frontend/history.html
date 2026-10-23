@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan History - AgriThermal AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="navbar" id="mainNav"></header>
+
+    <main class="main-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.75rem; font-weight: 800;">Scan History</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Saved thermal scan records stored in MySQL database</p>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <button id="clearHistoryBtn" class="btn btn-secondary" style="color: var(--accent-red); border-color: rgba(239, 68, 68, 0.3); padding: 0.5rem 1rem; font-size: 0.88rem;" disabled>
+            🗑️ Clear History
+          </button>
+          <div style="position: relative; width: 240px;">
+            <input
+              type="text"
+              id="searchInput"
+              class="form-control"
+              placeholder="🔍 Search scans..."
+            />
+          </div>
+        </div>
+      </div>
+
+      <div id="historyAlert" class="alert alert-error" style="display: none;"></div>
+
+      <div id="loadingState" style="text-align: center; padding: 3rem 0; color: var(--text-muted);">
+        Loading scan history...
+      </div>
+
+      <div id="historyCard" class="card" style="display: none; padding: 0; overflow: hidden;">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Filename</th>
+                <th>Diagnosis</th>
+                <th>Confidence</th>
+                <th>Status</th>
+                <th>Date & Time</th>
+              </tr>
+            </thead>
+            <tbody id="historyTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="emptyState" class="card" style="display: none; text-align: center; padding: 3rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-dim);">📁</div>
+        <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">No Thermal Scans Found</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          No matching scan records exist in the database.
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      AgriThermal AI © 2026 - Paddy Leaf Disease Detection System
+    </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/history.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriThermal AI - Thermal Paddy Leaf Disease Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="navbar" id="mainNav"></header>
+
+    <main class="main-content">
+      <div style="text-align: center; padding: 3rem 0; max-width: 800px; margin: 0 auto;">
+        <span class="badge badge-success" style="margin-bottom: 1rem; padding: 0.35rem 1rem; font-size: 0.85rem;">🔥 Thermal Vision AI Powered</span>
+        <h1 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.25rem;">
+          Detect Paddy Leaf Diseases Early Using <span style="background: linear-gradient(135deg, var(--primary), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Thermal Imaging</span>
+        </h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.6;">
+          Execute PyTorch ResNet50 deep learning model inference on thermal paddy leaf scans to detect physiological stress, stomatal transpiration loss, and early disease infection before visible leaf necrosis.
+        </p>
+
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <a href="/predict.html" class="btn btn-primary" style="padding: 0.85rem 2rem; font-size: 1rem;">
+            🔥 Analyze Thermal Image
+          </a>
+          <a href="/performance.html" class="btn btn-secondary" style="padding: 0.85rem 2rem; font-size: 1rem;">
+            📊 View Model Specs
+          </a>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top: 2rem;">
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary);">🔬</div>
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">PyTorch ResNet50</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Powered by a trained ResNet50 deep learning architecture adapted for 6-class paddy leaf disease classification.
+          </p>
+        </div>
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--accent-cyan);">⚡</div>
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Advanced Preprocessing</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            OpenCV median blur denoising ($k=3$), $8\times8$ CLAHE contrast enhancement per channel, and ImageNet normalization.
+          </p>
+        </div>
+        <div class="card">
+          <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--accent-amber);">💾</div>
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">MySQL Analytics</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Persists prediction records, diagnosis timestamps, confidence ratings, and user dashboard statistics.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      AgriThermal AI © 2026 - Paddy Leaf Disease Detection System
+    </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

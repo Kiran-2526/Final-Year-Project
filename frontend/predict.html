@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analyze Thermal Images - AgriThermal AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .preview-item {
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .preview-item img {
+      width: 100%;
+      height: 130px;
+      object-fit: contain;
+      background: #000;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+    .preview-item .remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 26px;
+      height: 26px;
+      background: rgba(239, 68, 68, 0.85);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .preview-item .remove-btn:hover {
+      background: #dc2626;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header class="navbar" id="mainNav"></header>
+
+    <main class="main-content" style="max-width: 1100px;">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800;">Thermal Image Batch Disease Analysis</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Upload single or multiple thermal paddy leaf images (Up to 10) to execute PyTorch ResNet50 inference
+        </p>
+      </div>
+
+      <div id="predictAlert" class="alert alert-error" style="display: none;"></div>
+
+      <!-- Upload Container -->
+      <div id="uploadCard" class="card">
+        <div id="dropzone" class="dropzone">
+          <input id="fileInput" type="file" accept="image/*" multiple style="display: none;">
+          <div style="font-size: 3rem; color: var(--primary); margin-bottom: 0.75rem;">☁️</div>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Drop your Thermal Image(s) here</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">
+            Select single or multiple thermal scans (JPG, PNG, BMP, WebP — Max 10 images, 20MB per image)
+          </p>
+        </div>
+
+        <!-- Preview Area for Selected Files -->
+        <div id="previewArea" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+            <h3 style="font-size: 1.1rem; font-weight: 700;">
+              Selected Thermal Images <span id="fileCountBadge" class="user-badge" style="margin-left: 0.5rem;">0 / 10</span>
+            </h3>
+            <div style="display: flex; gap: 0.75rem;">
+              <button id="addMoreBtn" class="btn btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;">
+                ➕ Add Images
+              </button>
+              <button id="clearAllBtn" class="btn btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.85rem; color: var(--accent-red);">
+                🗑️ Clear All
+              </button>
+            </div>
+          </div>
+
+          <div id="previewGrid" class="preview-grid"></div>
+
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <button id="analyzeBtn" class="btn btn-primary" style="padding: 0.85rem 2.5rem; font-size: 1rem;">
+              <span id="btnIcon">🔥</span> <span id="btnText">Analyze All Thermal Images</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result View Container -->
+      <div id="resultCard" class="card" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="font-size: 1.35rem; font-weight: 800;">Batch Analysis Results</h3>
+            <p id="batchTimestamp" style="font-size: 0.8rem; color: var(--text-dim);">
+              Executed: --
+            </p>
+          </div>
+          <button id="scanAnotherBtn" class="btn btn-secondary" style="font-size: 0.85rem;">
+            🔄 Scan Another Batch
+          </button>
+        </div>
+
+        <!-- Summary Statistics Banner -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+          <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Total Uploaded</div>
+            <div id="sumTotal" style="font-size: 1.75rem; font-weight: 800; font-family: var(--font-mono); color: var(--primary);">0</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Valid Predictions</div>
+            <div id="sumValid" style="font-size: 1.75rem; font-weight: 800; font-family: var(--font-mono); color: #34d399;">0</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Rejected Images</div>
+            <div id="sumRejected" style="font-size: 1.75rem; font-weight: 800; font-family: var(--font-mono); color: #f87171;">0</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); text-align: center;">
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Diseased Detections</div>
+            <div id="sumDiseased" style="font-size: 1.75rem; font-weight: 800; font-family: var(--font-mono); color: #fbbf24;">0</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h4 style="font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700;">Individual Prediction Reports</h4>
+          <div id="resultsGrid" class="results-grid"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      AgriThermal AI © 2026 - Paddy Leaf Disease Detection System
+    </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/predict.js"></script>
+</body>
+</html>

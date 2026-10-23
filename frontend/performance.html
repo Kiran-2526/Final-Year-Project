@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Specifications - AgriThermal AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="navbar" id="mainNav"></header>
+
+    <main class="main-content">
+      <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.75rem; font-weight: 800;">Model Architecture & Performance Specs</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Evaluation metrics and preprocessing specifications of the PyTorch ResNet50 model</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom: 2rem;">
+        <div class="card">
+          <div style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase;">Architecture</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: var(--primary); margin-top: 0.25rem;">ResNet50 (timm)</div>
+        </div>
+
+        <div class="card">
+          <div style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase;">Output Classes</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: var(--accent-cyan); margin-top: 0.25rem;">6 Paddy Diseases</div>
+        </div>
+
+        <div class="card">
+          <div style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase;">Input Tensor</div>
+          <div style="font-size: 1.25rem; font-weight: 800; font-family: var(--font-mono); margin-top: 0.25rem;">[1, 3, 224, 224]</div>
+        </div>
+
+        <div class="card">
+          <div style="font-size: 0.82rem; color: var(--text-muted); text-transform: uppercase;">Test Accuracy</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #34d399; font-family: var(--font-mono); margin-top: 0.25rem;">56.25%</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+            6-Class Classification Mapping
+          </h3>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px;">
+              <span>0. Bacterial Leaf Blight</span> <span style="font-family: var(--font-mono); color: var(--text-dim);">BLB</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px;">
+              <span>1. Rice Blast</span> <span style="font-family: var(--font-mono); color: var(--text-dim);">Blast</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px;">
+              <span style="color: #34d399; font-weight: 700;">2. Healthy</span> <span style="font-family: var(--font-mono); color: #34d399;">healthy</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px;">
+              <span>3. Hispa</span> <span style="font-family: var(--font-mono); color: var(--text-dim);">hispa</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px;">
+              <span>4. Leaf Folder</span> <span style="font-family: var(--font-mono); color: var(--text-dim);">leaf_folder</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; padding: 0.5rem 0.75rem; background: rgba(0,0,0,0.25); border-radius: 6px;">
+              <span>5. Brown Leaf Spot</span> <span style="font-family: var(--font-mono); color: var(--text-dim);">leaf_spot</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size: 1.1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+            Thermal Image Preprocessing Pipeline
+          </h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--primary);">✓</span> 1. Resize smaller edge to 256 preserving aspect ratio
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--primary);">✓</span> 2. Center crop to 224x224 spatial resolution
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--primary);">✓</span> 3. OpenCV Median Blur filter (ksize=3) for thermal noise reduction
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--primary);">✓</span> 4. OpenCV CLAHE (clipLimit=2.0, tileGridSize=8x8) per channel
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--primary);">✓</span> 5. ToTensor() pixel scaling to [0.0, 1.0]
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: var(--primary);">✓</span> 6. ImageNet Normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      AgriThermal AI © 2026 - Paddy Leaf Disease Detection System
+    </footer>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/performance.js"></script>
+</body>
+</html>
